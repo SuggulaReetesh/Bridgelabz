@@ -13,13 +13,13 @@ public class SpringSeason {
 		if(m==3 && d>=20) {
 			check=true;
 		}
-		if(m==4 && d<=30 ) {
+		if(m==4 && d>=1 &&d<=30 ) {
 			check=true;
 		}
-		if(m==5 && d<=31) {
+		if(m==5 && d>=1 && d<=31) {
 			check=true;
 		}
-		if(m==6 && d<=20) {
+		if(m==6 && d>=1 && d<=20) {
 			check=true;
 		}
 		if(check==true) {

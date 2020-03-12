@@ -5,8 +5,11 @@ public class IntOpt {
     	 
     	 Scanner in= new Scanner(System.in);
     	 int a,b,c;
+    	 System.out.println("A value");
     	 a=in.nextInt();
+         System.out.println("B value");
     	 b=in.nextInt();
+         System.out.println("C value");
     	 c=in.nextInt();
     	 System.out.println(a+b*c);
     	 System.out.println(a*b+c);

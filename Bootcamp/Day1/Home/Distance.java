@@ -6,7 +6,7 @@ public class Distance {
             int x,y;
 	    x=in.nextInt();
 	    y=in.nextInt();
-	    System.out.println(Math.sqrt(x*x + y*y));
+	    System.out.println(Math.sqrt(Math.pow(x,2)+ Math.pow(y,2)));
 		
 		
 	}
