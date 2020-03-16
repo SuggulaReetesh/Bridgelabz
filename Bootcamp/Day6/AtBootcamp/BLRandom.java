@@ -1,0 +1,125 @@
+package com.bridgelabz.lib;
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class BLRandom {
+	 private static Random random;   
+	 private static long seed; 
+	 
+	 static {
+	        seed = System.currentTimeMillis();
+	        random = new Random(seed);
+	    }
+	 public static void setSeed(long s) {
+        seed   = s;
+        random = new Random(seed);
+    }
+	 
+	 public static long getSeed() {
+	        return seed;
+	    }
+	 
+	 public static double uniform() {
+	        return random.nextDouble();
+	    }
+	 
+	 public static int uniform(int n) {
+	        if (n <= 0) throw new IllegalArgumentException("argument must be positive: " + n);
+	        return random.nextInt(n);
+	    }
+	 
+	 public static double uniform(double a, double b) {
+	        if (!(a < b)) {
+	            throw new IllegalArgumentException("invalid range: [" + a + ", " + b + ")");
+	        }
+	        return a + uniform() * (b-a);
+	    }
+	 
+	 public static boolean bernoulli(double p) {
+	        if (!(p >= 0.0 && p <= 1.0))
+	            throw new IllegalArgumentException("probability p must be between 0.0 and 1.0: " + p);
+
+	        return uniform() < p;
+	    }
+	 public static double gaussian() {
+	        double r, x, y;
+	        do {
+	            x = uniform(-1.0, 1.0);
+	            y = uniform(-1.0, 1.0);
+	            r = x*x + y*y;
+	        } while (r >= 1 || r == 0);
+	        return x * Math.sqrt(-2 * Math.log(r) / r);
+	    }
+	 
+	 public static double gaussian(double mu, double sigma) {
+	        return mu + sigma * gaussian();
+	    }
+	 
+	 public static int discrete(double[] probabilities) {
+	        if (probabilities == null) throw new IllegalArgumentException("argument array is null");
+	        double EPSILON = 1.0E-14;
+	        double sum = 0.0;
+	        for (int i = 0; i < probabilities.length; i++) {
+	            if (!(probabilities[i] >= 0.0))
+	                throw new IllegalArgumentException("array entry " + i + " must be nonnegative: " + probabilities[i]);
+	            sum += probabilities[i];
+	        }
+	        if (sum > 1.0 + EPSILON || sum < 1.0 - EPSILON)
+	            throw new IllegalArgumentException("sum of array entries does not approximately equal 1.0: " + sum);
+
+	        while (true) {
+	            double r = uniform();
+	            sum = 0.0;
+	            for (int i = 0; i < probabilities.length; i++) {
+	                sum = sum + probabilities[i];
+	                if (sum > r) return i;
+	            }
+	        }
+	    }
+	 
+	 public static void shuffle(double[] a) {
+	        validateNotNull(a);
+	        int n = a.length;
+	        for (int i = 0; i < n; i++) {
+	            int r = i + uniform(n-i);     // between i and n-1
+	            double temp = a[i];
+	            a[i] = a[r];
+	            a[r] = temp;
+	        }
+	    }
+	 private static void validateNotNull(Object x) {
+	        if (x == null) {
+	            throw new IllegalArgumentException("argument is null");
+	        }
+	    }
+	 
+	public static void main(String args[]) {
+		Scanner in =new Scanner(System.in);
+		System.out.println("Enter no of times");
+		 int n = in.nextInt();
+		 System.out.println("enter seed value");
+		 String seed =in.next();
+		 
+	        if (args.length == 2) 
+	        	BLRandom.setSeed(Long.parseLong(seed));
+	        double[] probabilities = { 0.5, 0.3, 0.1, 0.1 };
+	        double[] a = {0.5, 0.3, 0.1, 0.1};
+
+	        System.out.println("seed = " + BLRandom.getSeed());
+	        for (int i = 0; i < n; i++) {
+	            System.out.printf("%2d ",uniform(100));
+	            System.out.printf("%8.5f ", uniform(10.0, 99.0));
+	            System.out.printf("%5b ",   bernoulli(0.5));
+	            System.out.printf("%7.5f ", gaussian(9.0, 0.2));
+	            System.out.printf("%1d ",   discrete(probabilities));
+	  
+	            BLRandom.shuffle(a);
+	            for (double s : a)
+	                System.out.print(s);
+	            System.out.println();
+	        }
+		
+	}
+
+}

@@ -29,7 +29,7 @@ public class SecondMinMax {
 	void second_min(int a[]) {
 		
 		int first = Integer.MAX_VALUE;
-        int second = Integer.MAX_VALUE;
+                int second = Integer.MAX_VALUE;
 		int i;
 		    for (i = 1; i < a.length; ++i) {
 		        if (a[i]<first) {
