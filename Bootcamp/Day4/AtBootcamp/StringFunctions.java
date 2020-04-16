@@ -1,7 +1,9 @@
+
+
 import java.util.*;
 public class StringFunctions {
 	private static Scanner in =new Scanner(System.in);
-	public static String[] a=new String[10000];
+	public static String[] a1=new String[10000];
 	public static int index;
 	public static void check_for_anagram() {
 		int count1[]=new int[256];
@@ -68,7 +70,6 @@ public class StringFunctions {
 		            int j = ((i % 2) == 0) ? 0 : p[i];
 		            swap(a, i, j);
 		            b[index++]=join(a);
-                           
 		            p[i]++; 
 		            i = 1; 
 		        }
@@ -77,10 +78,14 @@ public class StringFunctions {
 		            i++;
 		        }
 		    }
-		    String c[]=new String[index];
+		    String c[]=new String[index+1];
 		    for(int i1=0;i1<index;i1++) {
 		    	c[i1]=b[i1];
 		    }
+		    c[index]=s;
+		   
+		 
+		     
 		    return c;
 		}
 
@@ -99,15 +104,40 @@ public class StringFunctions {
 	public static void permutation_recursion(String p, String s) {
 		
 		if(s.length()==0) {
-              a[index]=p;
+              a1[index]=p;
               index++;
-              System.out.println(p);
+              //System.out.println(p);
 		}
 		else {
 			for(int i=0 ;i<s.length();i++) {
 				permutation_recursion(p+s.charAt(i),s.substring(0,i)+s.substring(i+1,s.length()));
 			}
 		}
+		
+	}
+	
+	public static void check(String[] arr1 ,String[] arr2) {
+		String duplicate[]=new String[arr1.length];
+		for(int i=0;i<arr1.length;i++) {
+			duplicate[i]=arr2[i];
+		}
+		Arrays.sort(arr1);
+		Arrays.sort(duplicate);
+		int check=0;
+		for(int i=0;i<arr1.length;i++) {
+			if(arr1[i].equals(duplicate[i]))
+				check=1;
+			else {
+				check=0;
+				break;
+			}
+			System.out.println(arr1[i]+" "+duplicate[i]);
+		}
+		if(check==1)
+			System.out.println("Both are same");
+		else
+			System.out.println("Not same");
+		
 		
 	}
 
@@ -117,6 +147,7 @@ public class StringFunctions {
 		System.out.println("2. check for palindrome");
 		System.out.println("3. permutation using iteration");
 		System.out.println("4. permuataion using recursion");
+		System.out.println("5. check 3 4 equal or not");
 		int n=in.nextInt();
 		switch(n) {
 		case 1:check_for_anagram();
@@ -131,6 +162,12 @@ public class StringFunctions {
 		        String permutation="";
 			    permutation_recursion(permutation,s1);
 		        break;
+		case 5:String s2=in.next();
+		       permutation_recursion("",s2);
+		       check(permutation_iteration(s2), a1);
+		       break;
+		       
+		       
 		        
 		
 		default:System.out.println("enter correct choice");       

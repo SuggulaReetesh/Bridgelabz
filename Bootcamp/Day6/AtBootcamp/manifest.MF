@@ -1,2 +1,4 @@
-Main-Class: BLRandom
+Main-Class: StdRandom
+
+
 

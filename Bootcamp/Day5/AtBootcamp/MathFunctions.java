@@ -2,7 +2,7 @@
 
 import java.util.*;
 public class MathFunctions {
-	 public static void HarmonicNumber() {
+	 public static double HarmonicNumber() {
 			Scanner in =new Scanner(System.in);
 			int n;
 			double result=0;
@@ -13,8 +13,10 @@ public class MathFunctions {
 				result=result+1/(double)i;
 			}
 			result=result+1/(double)n;
-			System.out.println(1+"/"+n+"="+result);
+                        System.out.println(1+"/"+n+" =");
+			
 			in.close();
+return result;
 		}
 	 public static double sqrt(double c) {
 		 
@@ -81,7 +83,7 @@ public class MathFunctions {
 		System.out.println("6. compund interest future value");
 		int n=in.nextInt();
 		switch(n) {
-		case 1:HarmonicNumber();
+		case 1:System.out.println(HarmonicNumber());
 		break;
 		case 2:double p=in.nextDouble();
 		       double result=sqrt(p);
